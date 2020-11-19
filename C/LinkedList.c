@@ -1,12 +1,12 @@
 #include<stdio.h>
 #include<stdlib.h>
-int len();
-void addAtBegin(int a);
-void append(int a);
-void addAfter(int a, int loc);
-void delFirst();
-void delLast();
-void delAt(int loc);
+int len(); // for defining the length of linkedlist
+void addAtBegin(int a); // for adding the element at the start of the linkedlist
+void append(int a); // for adding the element at the end of the linkedlist
+void addAfter(int a, int loc); // for adding the element at the certain position in the linkedlist
+void delFirst(); // for deleting the first element of the linkedlist
+void delLast(); // for deleting the last element of the linkedlist
+void delAt(int loc); // for deleting the element at a certain position in the linkedlist
 void display();
 
 struct node{
@@ -140,7 +140,7 @@ void display(){
 	}
 }
 
-
+// driver's code
 void main(){
 	addAtBegin(10);
 	append(25);

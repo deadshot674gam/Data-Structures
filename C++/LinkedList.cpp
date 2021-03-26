@@ -14,6 +14,13 @@ struct Node
 };
 typedef struct Node Node;
 
+ostream &operator<<(ostream &os, vector<int> arr){
+    for (int i = 0; i < arr.size(); ++i){
+        os << arr[i] << " ";
+    }
+
+    return os;
+}
 
 
 Node* reverse(Node *prev, Node *curr)
@@ -143,25 +150,92 @@ public:
     }
 
     void rearrange(int x){
-        
+        Node*  beforeHead = new Node(1);
+        Node*  afterHead = new Node(1);
 
-        LinkedList* l = new LinkedList();
-
+        Node* before = beforeHead;
+        Node* after = afterHead;
         Node* ptr = head;
         while(ptr!=NULL){
-            if(ptr->data<x)
-            (*l).append(ptr->data);
+            if(ptr->data<x){
+                before->next = ptr;
+                before = before->next;
+            }else{
+                after->next = ptr;
+                after = after->next;
+            }
             ptr = ptr->next;
         }
+        after->next = NULL;
+        before->next = afterHead->next;
+        this->head = beforeHead->next;        
+    }
 
-        ptr = head;
+    bool isPallindrome(){
+        Node* ptr = head;
+        vector<int> vec;
+
         while(ptr!=NULL){
-            if(ptr->data>=x)
-            (*l).append(ptr->data);
+            vec.push_back(ptr->data);
             ptr = ptr->next;
         }
-        this->head = (*l).head;
 
+        int low = 0;
+        int high = vec.size() -1;
+        cout<<vec;
+        while(low<high){
+            if(vec[low] != vec[high]){
+                return false;
+            }
+            low++;
+            high--;
+        }
+        return true;
+    }
+
+    bool ifPallindrome(){
+        Node* slow = head;
+        Node* fast = head;
+
+        while(fast!=NULL && fast->next!=NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        
+        slow = reverse(NULL,slow);
+        fast = head;
+        bool flag = false;
+        while(fast!=NULL && slow!=NULL){
+            if(fast->data == slow->data){
+                fast = fast->next;
+                slow = slow->next;
+                continue;
+            }
+            flag = true;
+            break;
+        }
+        return !flag;
+    }
+
+    void spiral(){
+        Node* slow = head;
+        Node* fast = head;
+        Node* prev;
+        while(fast!=NULL && fast->next!=NULL){
+            prev = slow;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        prev->next = NULL;
+
+        head = reverse(NULL,head);
+        
+        Node* before = new Node(0);
+        while (slow!=NULL)
+        {
+            /* code */
+        }
         
     }
 };
@@ -171,15 +245,15 @@ public:
 int main()
 {
     LinkedList* n = new LinkedList();
-    (*n).append(9);
-    (*n).append(2);
     (*n).append(1);
+    (*n).append(2);
+    (*n).append(3);
+    (*n).append(4);
+    (*n).append(5);
+    (*n).append(4);
     (*n).append(3);
     (*n).append(2);
-    (*n).append(4);
-    (*n).append(10);
-    (*n).append(8);
-    (*n).append(7);
+    (*n).append(1);
     // (*n).display();
     // (*n).head = (*n).reverseList();
     
@@ -187,10 +261,10 @@ int main()
     // (*n).head = reverse(NULL, (*n).head);
     // (*n).display();
 
-    (*n).rearrange(5);
+    // (*n).rearrange(5);
+    cout<<(*n).ifPallindrome()<<endl;
 
-
-    cout<<n;
+    // cout<<n;
     delete n;
     return 0;
 }

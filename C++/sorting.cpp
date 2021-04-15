@@ -192,6 +192,40 @@ vector<int> treeSort(int *arr, int size){
     return vec;
 }
 
+void countSortForRadix(vector<int> &vec,int n){
+
+    vector<int> count(10);
+    for(int i = 0;i<vec.size();++i){
+        count[(vec[i]/n)%10]++;
+    }
+
+    for(int i=1;i<count.size();++i){
+        count[i] += count.at(i-1);
+    }
+   
+
+
+    vector<int> ne(vec.size()+1);
+    for(int i=vec.size()-1;i>=0;i--){
+        count[(vec.at(i)/n)%10]--;
+        ne[count[(vec.at(i)/n)%10]] = vec.at(i);
+    }
+
+    for(int i=0;i<vec.size();i++){
+        vec[i] = ne[i];
+    }
+
+}
+
+
+void radixsort(vector<int> &vec){
+    int ma = *max_element(vec.begin(),vec.end());
+    for(int pos = 1;ma/pos >0; pos*=10){
+        countSortForRadix(vec,pos);
+    }
+}
+
+
 int main(){
     int arr[] = {10, 2, 20, 4, 21, 12, 5, 43, 2, 2, 3, 5};
     // cout<<(arr,12);

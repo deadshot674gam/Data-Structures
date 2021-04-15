@@ -83,6 +83,35 @@ void mergeSort(int *arr, int l, int h){
     }
 }
 
+
+void countSort(vector<int> &vec){
+    int ma = *max_element(vec.rbegin(),vec.rend());
+    // cout<<ma<<endl;
+    vector<int> count(ma+1);
+    for(int i = 0;i<vec.size();++i){
+        count[vec[i]]++;
+    }
+    // cout<<count<<endl;
+
+    for(int i=1;i<count.size();++i){
+        count[i] += count.at(i-1);
+    }
+   
+
+
+    vector<int> ne(vec.size()+1);
+    for(int i=vec.size()-1;i>=0;i--){
+        count[vec.at(i)]--;
+        ne[count[vec.at(i)]] = vec.at(i);
+    }
+
+    for(int i=0;i<vec.size();i++){
+        vec[i] = ne[i];
+    }
+
+}
+
+
 void bubbleSort(int *arr, int n){
     for (int i = 0; i < n - 1; ++i){
         for (int j = i + 1; j < n; ++j){

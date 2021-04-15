@@ -84,6 +84,12 @@ public:
         }
     }
 
+    void insertAtNode(int x){
+        Node* temp = new Node(x);
+        temp->next = head;
+        this->head = temp;
+    }
+
     Node* reverseList()
     {
         Node *curr = this->head;
@@ -181,7 +187,7 @@ public:
         }
 
         int low = 0;
-        int high = vec.size() -1;
+        int high = vec.size()-1;
         cout<<vec;
         while(low<high){
             if(vec[low] != vec[high]){
@@ -194,14 +200,15 @@ public:
     }
 
     bool ifPallindrome(){
+        if(head==NULL && head->next==NULL){
+            return true;
+        }
         Node* slow = head;
         Node* fast = head;
-
         while(fast!=NULL && fast->next!=NULL){
             slow = slow->next;
             fast = fast->next->next;
         }
-        
         slow = reverse(NULL,slow);
         fast = head;
         bool flag = false;
@@ -217,28 +224,13 @@ public:
         return !flag;
     }
 
-    void spiral(){
-        Node* slow = head;
-        Node* fast = head;
-        Node* prev;
-        while(fast!=NULL && fast->next!=NULL){
-            prev = slow;
-            slow = slow->next;
-            fast = fast->next->next;
-        }
 
-        prev->next = NULL;
-
-        head = reverse(NULL,head);
-        
-        Node* before = new Node(0);
-        while (slow!=NULL)
-        {
-            /* code */
-        }
-        
-    }
+    
 };
+
+void reverseByKgroups(Node* head,int k){
+        if()
+}
 
 
 
@@ -257,14 +249,14 @@ int main()
     // (*n).display();
     // (*n).head = (*n).reverseList();
     
-
+    (*n).insertAtNode(1);
     // (*n).head = reverse(NULL, (*n).head);
     // (*n).display();
 
     // (*n).rearrange(5);
-    cout<<(*n).ifPallindrome()<<endl;
+    // cout<<(*n).ifPallindrome()<<endl;
 
-    // cout<<n;
+    cout<<n;
     delete n;
     return 0;
 }
